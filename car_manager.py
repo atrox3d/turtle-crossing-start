@@ -6,7 +6,8 @@ STARTING_MOVE_DISTANCE = 5
 MOVE_INCREMENT = 10
 YLIMITS = -240, 240
 XSTART = 300
-MAX_CARS = 300
+CARS_PER_WAVE = 480 / 20
+MAX_CARS = 60
 
 
 class Car(Turtle):
@@ -29,24 +30,32 @@ class CarManager:
     def __init__(self):
         self.cars = []
 
+    def repositiony(self, car):
+        check = True
+        while check:
+            reposition = False
+            for c in self.cars:
+                if c.ycor() == XSTART and c.ycor() == car.ycor():
+                    print(f"cary = {car.ycor()} othercary = {c.ycor()} -----> OVERLAP!")
+                    reposition = True
+                else:
+                    # print(f"cary = {car.ycor()} othercary = {c.ycor()}")
+                    pass
+            print("-" * 80)
+            if not reposition:
+                check = False
+
     def add_car(self):
         if len(self.cars) < MAX_CARS:
             car = Car()
-            overlap = True
-            while overlap:
-                overlap = False
-                for othercar in self.cars:
-                    if car.ycor() == othercar.ycor():
-                        overlap = True
-                        print(f"overlap: {car.color()}:{car.ycor()}, {othercar.color()}:{car.ycor()}")
-                        car.set_randomy()
-
+            self.repositiony(car)
             self.cars.append(car)
 
     def move_cars(self):
         for car in self.cars:
             car.forward(MOVE_INCREMENT)
             if car.xcor() < -310:
-                self.cars.remove(car)
-                car.hideturtle()
-                print(f"car clear; {car}")
+                #self.cars.remove(car)
+                car.setx(XSTART)
+                self.repositiony(car)
+                print(f"car reset; {car}")
