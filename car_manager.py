@@ -34,10 +34,16 @@ class CarManager:
         check = True
         while check:
             reposition = False
-            for c in self.cars:
-                if c.ycor() == XSTART and c.ycor() == car.ycor():
-                    print(f"cary = {car.ycor()} othercary = {c.ycor()} -----> OVERLAP!")
+            for othercar in self.cars:
+                if car is othercar:
+                    # print(f"samecar: {car}:{othercar}")
+                    pass
+                # if car is not othercar and car.pos() == othercar.pos():
+                elif car.distance(othercar) < 40:
+                    # print(f"cary = {car.pos()} othercary = {othercar.pos()} -----> OVERLAP!")
+                    print(f"car distance: {car.distance(othercar)}")
                     reposition = True
+                    car.set_randomy()
                 else:
                     # print(f"cary = {car.ycor()} othercary = {c.ycor()}")
                     pass
@@ -58,4 +64,4 @@ class CarManager:
                 #self.cars.remove(car)
                 car.setx(XSTART)
                 self.repositiony(car)
-                print(f"car reset; {car}")
+                # print(f"car reset; {car}")
