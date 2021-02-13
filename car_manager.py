@@ -16,10 +16,13 @@ class Car(Turtle):
         self.shapesize(stretch_wid=1, stretch_len=2)
         self.penup()
         self.color(random.choice(COLORS))
+        self.setheading(180)
+        self.set_randomy()
+
+    def set_randomy(self):
         # don't overlap in y axis
         randomy = random.randrange(*YLIMITS, 20)
         self.goto(XSTART, randomy)
-        self.setheading(180)
 
 
 class CarManager:
@@ -29,11 +32,15 @@ class CarManager:
     def add_car(self):
         if len(self.cars) < MAX_CARS:
             car = Car()
-            for othercar in self.cars:
-                if car.ycor() == othercar.ycor():
-                    car.hideturtle()
-                    print(f"car clear; {car}")
-                    return
+            overlap = True
+            while overlap:
+                overlap = False
+                for othercar in self.cars:
+                    if car.ycor() == othercar.ycor():
+                        overlap = True
+                        print(f"overlap: {car.color()}:{car.ycor()}, {othercar.color()}:{car.ycor()}")
+                        car.set_randomy()
+
             self.cars.append(car)
 
     def move_cars(self):
