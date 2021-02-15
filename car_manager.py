@@ -31,8 +31,10 @@ class CarManager:
         self.cars: list[Car] = []
 
     def create_car(self):
-        car = Car()
-        self.cars.append(car)
+        random_chance = random.randint(1, 6)
+        if random_chance == 1:
+            car = Car()
+            self.cars.append(car)
 
     def move_cars(self):
         for car in self.cars:
