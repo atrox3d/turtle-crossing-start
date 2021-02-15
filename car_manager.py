@@ -22,34 +22,13 @@ class Car(Turtle):
 
     def set_randomy(self):
         # don't overlap in y axis
-        randomy = random.randrange(*YLIMITS, 20)
+        randomy = random.randint(*YLIMITS)
         self.goto(XSTART, randomy)
 
 
 class CarManager:
     def __init__(self):
         self.cars = []
-
-    def repositiony(self, car):
-        check = True
-        while check:
-            reposition = False
-            for othercar in self.cars:
-                if car is othercar:
-                    # print(f"samecar: {car}:{othercar}")
-                    pass
-                # if car is not othercar and car.pos() == othercar.pos():
-                elif car.distance(othercar) < 40:
-                    # print(f"cary = {car.pos()} othercary = {othercar.pos()} -----> OVERLAP!")
-                    print(f"car distance: {car.distance(othercar)}")
-                    reposition = True
-                    car.set_randomy()
-                else:
-                    # print(f"cary = {car.ycor()} othercary = {c.ycor()}")
-                    pass
-            print("-" * 80)
-            if not reposition:
-                check = False
 
     def add_car(self):
         if len(self.cars) < MAX_CARS:
