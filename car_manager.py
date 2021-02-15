@@ -17,7 +17,7 @@ class Car(Turtle):
         self.shapesize(stretch_wid=1, stretch_len=2)
         self.penup()
         self.color(random.choice(COLORS))
-        self.setheading(180)
+        # self.setheading(180)
         self.set_randomy()
 
     def set_randomy(self):
@@ -28,19 +28,12 @@ class Car(Turtle):
 
 class CarManager:
     def __init__(self):
-        self.cars = []
+        self.cars: list[Car] = []
 
-    def add_car(self):
-        if len(self.cars) < MAX_CARS:
-            car = Car()
-            self.repositiony(car)
-            self.cars.append(car)
+    def create_car(self):
+        car = Car()
+        self.cars.append(car)
 
     def move_cars(self):
         for car in self.cars:
-            car.forward(MOVE_INCREMENT)
-            if car.xcor() < -310:
-                #self.cars.remove(car)
-                car.setx(XSTART)
-                self.repositiony(car)
-                # print(f"car reset; {car}")
+            car.backward(STARTING_MOVE_DISTANCE)

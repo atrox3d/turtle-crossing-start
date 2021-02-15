@@ -19,7 +19,7 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
 
-    carmanager.add_car()
+    carmanager.create_car()
     carmanager.move_cars()
 
 screen.exitonclick()
