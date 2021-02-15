@@ -32,4 +32,5 @@ while game_is_on:
     #
     if player.is_at_finishline():
         player.goto_start()
+        carmanager.levelup()
 screen.exitonclick()
